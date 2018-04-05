@@ -62,7 +62,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="login.jsp">Login</a></li>
 						<li class="divider"></li>
-						<li><a href="addBookToLibrary.jsp">Publish Book</a></li>
+						<li><a href="addBookToLibrary.jsp">Add Book to Library</a></li>
 						<li class="divider"></li>
 						<li><a href="libraryHome.jsp">Library Home</a></li>
 					</ul></li>
