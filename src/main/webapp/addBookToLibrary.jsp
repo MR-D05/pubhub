@@ -59,7 +59,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-1">
-					<button type="submit" class="btn btn-info">Publish</button>
+					<button type="submit" class="btn btn-info">Add Book to Library</button>
 				</div>
 			</div>
 		</form>
