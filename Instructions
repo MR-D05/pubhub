@@ -1,0 +1,3 @@
+In Book Controller, set upload folder
+Must setup postgresql with corresponding relations
+No registration feature in this app, so add a row to the users table in order to login
