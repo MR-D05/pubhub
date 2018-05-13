@@ -22,11 +22,11 @@
 		</c:choose>
 
 		<h1>
-			LibraryApp <small>Your Cart</small>
+			PubHub <small>Your Cart</small>
 		</h1>
 		<hr class="book-primary">
 		<table
-			class="table table-striped table-hover table-responsive LibraryApp-datatable">
+			class="table table-striped table-hover table-responsive PubHub-datatable">
 			<thead>
 				<tr>
 					<td>ISBN-13:</td>

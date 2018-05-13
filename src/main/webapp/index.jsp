@@ -6,7 +6,7 @@
 			<div class="col-lg-12">
 				<!--                     <img class="img-responsive" src="resources/libraries/img/profile.png" alt=""> -->
 				<div class="intro-text">
-					<span class="name">LibraryApp</span>
+					<span class="name">PubHub</span>
 					<hr class="book-primary">
 					<span class="skills">Open Your Mind</span>
 				</div>

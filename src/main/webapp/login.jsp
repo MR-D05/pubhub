@@ -22,7 +22,7 @@
 	</c:when>
 	</c:choose>
 	
-		<h1>LibraryApp <small>Login</small></h1>
+		<h1>PubHub <small>Login</small></h1>
 		<hr class="book-primary">
 		<form action="/auth/login" method="post" class="form-horizontal">
 		  <div class="form-group">

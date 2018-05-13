@@ -22,12 +22,12 @@
 		</c:choose>
 
 		<h1>
-			LibraryApp <small>Your Previously Checkout Out Books</small>
+			PubHub <small>Checkout History</small>
 		</h1>
-		<h2><a href="libraryHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
+		<h2><a href="pubHubHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
 		<hr class="book-primary">
 		<table
-			class="table table-striped table-hover table-responsive LibraryApp-datatable">
+			class="table table-striped table-hover table-responsive PubHub-datatable">
 			<thead>
 				<tr>
 					<td>ISBN-13:</td>

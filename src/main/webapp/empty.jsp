@@ -11,9 +11,9 @@
 <header>
 	<div class="container">
 		<h1>
-			LibraryApp <small>Your Cart Is Empty</small>
+			PubHub <small>Your Cart Is Empty</small>
 		</h1>
-		<h2><a href="libraryHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
+		<h2><a href="pubHubHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
 	</div>
 </header>
 

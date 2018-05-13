@@ -22,12 +22,12 @@
 		</c:choose>
 
 		<h1>
-			LibraryApp <small>Library Home</small>
+			PubHub <small>PubHub Home</small>
 		</h1>
 		<hr class="book-primary">
 
 		<table
-			class="table table-striped table-hover table-responsive LibraryApp-datatable">
+			class="table table-striped table-hover table-responsive PubHub-datatable">
 			<thead>
 				<tr>
 					<td>ISBN-13:</td>
@@ -48,7 +48,7 @@
 					</tr>
 				</c:forEach>
 				<td><a href="/order/cart" class="btn btn-primary">View Cart</a></td>
-				<td><a href="/order/list" class="btn btn-primary">View Previously Checked Out Books</a></td>
+				<td><a href="/order/list" class="btn btn-primary">Checkout History</a></td>
 			</tbody>
 		</table>
 

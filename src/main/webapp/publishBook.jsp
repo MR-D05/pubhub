@@ -23,7 +23,7 @@
 		</c:choose>
 
 		<h1>
-			LibraryApp <small>Add Book to Library</small>
+			PubHub <small>Add Book to PubHub</small>
 		</h1>
 		<hr class="book-primary">
 
@@ -59,7 +59,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-1">
-					<button type="submit" class="btn btn-info">Add Book to Library</button>
+					<button type="submit" class="btn btn-info">Publish Book</button>
 				</div>
 			</div>
 		</form>

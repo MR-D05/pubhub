@@ -11,9 +11,9 @@
 <header>
 	<div class="container">
 		<h1>
-			LibraryApp <small>Check Out Successful</small>
+			PubHub <small>Check Out Successful</small>
 		</h1>
-		<h2><a href="libraryHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
+		<h2><a href="pubHubHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
 	</div>
 </header>
 

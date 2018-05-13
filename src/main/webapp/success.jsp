@@ -10,9 +10,9 @@
 <header>
 	<div class="container">
 		<h1>
-			LibraryApp <small>Item Successfully Added to Cart</small>
+			PubHub <small>Item Successfully Added to Cart</small>
 		</h1>
-		<h2><a href="libraryHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
+		<h2><a href="pubHubHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
 		<h2><a href="/order/cart" class="btn btn-primary">View Cart</a></h2>
 	</div>
 </header>

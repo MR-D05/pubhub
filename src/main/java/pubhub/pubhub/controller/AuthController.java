@@ -36,7 +36,7 @@ public class AuthController {
 			List<Book> books = null;
 			books = bookService.findAll();
 			session.setAttribute("books", books);
-			return "redirect:/libraryHome.jsp";
+			return "redirect:/pubHubHome.jsp";
 		} else {
 			modelMap.addAttribute("ERROR_MESSAGE", "Invalid Credentials.");
 			return "home";

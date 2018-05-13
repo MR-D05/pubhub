@@ -1,3 +1,6 @@
 In Book Controller, set upload folder
 Must setup postgresql with corresponding relations
 No registration feature in this app, so add a row to the users table in order to login
+
+
+Clicking on home link should invariably bring you to the login page for example if you've already logged in

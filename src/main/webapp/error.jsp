@@ -14,7 +14,7 @@
 			out.println("<p class=\"alert alert-danger\">Something went wrong</p>");
 		%>
 		
-		<h1>LibraryApp <small>error page</small></h1>
+		<h1>PubHub <small>error page</small></h1>
 		<hr class="book-primary">
 		<p>
 		  Your code threw an exception <i class="fa fa-frown-o fa-3"></i>
