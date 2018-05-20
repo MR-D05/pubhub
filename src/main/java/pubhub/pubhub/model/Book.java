@@ -11,29 +11,29 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="books")
+@Table(name = "books")
 public class Book implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="isbn13")
-	private String isbn13;			// International Standard Book Number, unique
-	
+	@Column(name = "isbn13")
+	private String isbn13; // International Standard Book Number, unique
+
 	@Column
 	private String title;
-	
+
 	@Column
 	private String author;
-	
+
 	@Column
 	private byte[] content;
 
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="isbn13", cascade=CascadeType.ALL)
-    public List<BookTag> booktags;
-	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "isbn13", cascade = CascadeType.ALL)
+	public List<BookTag> booktags;
+
 	// Constructor used when a date is specified
 	public Book(String isbn, String title, String author, byte[] content) {
 		this.isbn13 = isbn;
@@ -41,7 +41,7 @@ public class Book implements Serializable {
 		this.author = author;
 		this.content = content;
 	}
-	
+
 	// Default constructor
 	public Book() {
 		this.isbn13 = null;
@@ -49,7 +49,7 @@ public class Book implements Serializable {
 		this.author = null;
 		this.content = null;
 	}
-	
+
 	public String getIsbn13() {
 		return isbn13;
 	}
@@ -86,7 +86,7 @@ public class Book implements Serializable {
 		return booktags;
 	}
 
-	public void setBookTags(List<BookTag> bookTags) {
+	public void setBookTags(List<BookTag> bookTags, List<BookTag> booktags) {
 		this.booktags = booktags;
 	}
 }

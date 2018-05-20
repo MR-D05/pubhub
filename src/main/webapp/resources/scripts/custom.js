@@ -19,3 +19,17 @@ $(document).ready(function(){
 
     });
 });
+
+function getCookie(name) {
+    return document.cookie.split('; ').reduce((r, v) => {
+        const parts = v.split('=')
+        return parts[0] === name ? decodeURIComponent(parts[1]) : r
+    }, '')
+}
+     
+function display_username() {
+    var username = getCookie('welcome');
+    if (username) {
+        document.getElementById("welcometext").innerHTML = "Welcome " + username + "!";
+    }
+}

@@ -5,27 +5,26 @@ import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="items")
+@Table(name = "items")
 public class Item {
 
 	@Id
-	@GenericGenerator(name="BIGINT", strategy="increment")
-	@GeneratedValue(generator="BIGINT")
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Long id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="orderid")
+	@JoinColumn(name = "orderid")
 	private Order order;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="bookid")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "bookid")
 	private Book book;
 
-	@Column(name="quantity")
+	@Column(name = "quantity")
 	private Integer quantity;
 
-	@Column(name="ordered")
+	@Column(name = "ordered")
 	private LocalDateTime ordered;
 
 	public Long getId() {
@@ -43,11 +42,11 @@ public class Item {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
+
 	public void releaseFromOrder() {
 		this.order = null;
 	}
-	
+
 	public void addItemToOrder() {
 		this.order = null;
 	}

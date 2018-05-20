@@ -54,7 +54,7 @@ public class OrderController {
 		User user = (User) session.getAttribute("LOGGED_IN_USER");
 		try {
 			Order order = orderService.findOrderByUserAndStatus(user, "OPEN");
-			List<Item> items = order.getItems();
+			order.getItems();
 			session.setAttribute("MY_CART_ITEMS", order);
 			return "redirect:/cart.jsp";
 		} catch (NullPointerException n) {

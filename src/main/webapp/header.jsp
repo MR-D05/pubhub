@@ -39,7 +39,8 @@
 	href="../resources/styles/custom.css" />
 
 </head>
-<body id="page-top" class="index">
+<body onload="display_username()">
+	id="page-top" class="index">
 	<!-- Navigation -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
@@ -61,14 +62,15 @@
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">PubHub<b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="login.jsp">Home (Level 100)</a></li>
+						<li><a href="/login">Home (Level 100)</a></li>
 						<li class="divider"></li>
 						<li><a href="publishBook.jsp">Publish Book</a></li>
+						<li><a href="/logout">Logout</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Marketplace<b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="login.jsp">Home (Level 200)</a></li>
+						<li><a href="/login">Home (Level 200)</a></li>
 						<li class="divider"></li>
 						<li><a href="/order/cart">Cart</a></li>
 						<li><a href="/order/list">Orders</a></li>
@@ -76,10 +78,7 @@
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Social<b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="FanOutreach">Home (Level 300)</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Follow/Unfollow</a></li>
-						<li><a href="#">Talk to your fans</a></li>
+						<li><a href="socialHome.jsp">Home (Level 300)</a></li>
 					</ul></li>
 			</ul>
 		</div>

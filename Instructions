@@ -4,3 +4,38 @@ No registration feature in this app, so add a row to the users table in order to
 
 
 Clicking on home link should invariably bring you to the login page for example if you've already logged in
+
+BR-5: The Fan Outreach Service may be used by future applications, and will be a standalone service.
+BR-6: The Fan Outreach Service will allow the creation of message-posting channels, subscription to those channels, and the sending/retrieval of messages therein
+BR-7: A published author is always a published author, and their channels should not be removable.
+FR-3: The Fan Outreach Service will use REST to handle interaction with other systems.
+FR-3.1: POST to ".../service/{authorName}" will create an author channel
+FR-3.2: PUT to ".../service/{authorName}" will add a subscriber to the author channel
+FR-3.3: DELETE to ".../service/{authorName}" will remove a subscriber from the author channel
+FR-3.4: GET to ".../service/{authorName}/messages" will retrieve all messages in the author channel
+FR-3.5: POST to ".../service/{authorName}/messages" will send a message to the author channel
+NFR-3: Each message will be a String
+NFR-4: Subscribers will be identified by their username
+
+BR-1: Users should have individual accounts, used to track and manage their activity.
+BR-2: Users should not be able to use the application without logging in first
+FR-1: Users must be able to access the application by logging into their account with a username and password.
+Additionally, remember to implement these Nonfunctional Requirements:
+
+NFR-1: usernames must be at least 8 characters long, and unique
+NFR-2: Passwords must be at least 8 characters long, and include 2 numbers
+The login system should consist of:
+
+A users table that has, at minimum, columns for usernames and passwords.
+A UserDAO class responsible for CRUD operations on the users table
+A login.jsp page, with a form for username and password that submits with a POST request.
+A LoginServlet class that accesses the UserDAO to check the provided username and password
+A registration.jsp page, with a form for creating a new user account.
+A RegistrationServlet class that accesses the UserDAO to create a new user in the database
+The login.jsp should be the first page the user sees.
+
+
+
+
+
+manage your subscriptions  || authors you are subscribed to -> post to channel  -> add subscription

@@ -5,38 +5,34 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="orders")
+@Table(name = "orders")
 public class Order {
 
 	@Id
-	@GenericGenerator(name="BIGINT", strategy="increment")
-	@GeneratedValue(generator="BIGINT")
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="userid")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "userid")
 	private User user;
-	
-	@OneToMany(mappedBy="order", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
+
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Item> items;
 
-	@Column(name="status")
+	@Column(name = "status")
 	private String status;
 
 	public Long getId() {
@@ -64,20 +60,20 @@ public class Order {
 	}
 
 	public void clearItems() {
-		for(Item item : items) {
+		for (Item item : items) {
 			item.releaseFromOrder();
 		}
 		items.clear();
 	}
-	
+
 	public void removeItem(String isbn13) {
-		for(Item item : items) {
-			if(item.getBook().getIsbn13().equals(isbn13)) {
+		for (Item item : items) {
+			if (item.getBook().getIsbn13().equals(isbn13)) {
 				item.releaseFromOrder();
 			}
 		}
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
@@ -86,8 +82,8 @@ public class Order {
 		this.status = status;
 	}
 
-	public Order(Long id, User user, List<Item> items, String status, LocalDateTime ordered,
-			LocalDate cancelled, LocalDate delivered) {
+	public Order(Long id, User user, List<Item> items, String status, LocalDateTime ordered, LocalDate cancelled,
+			LocalDate delivered) {
 		super();
 		this.id = id;
 		this.user = user;

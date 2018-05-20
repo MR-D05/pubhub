@@ -47,11 +47,14 @@
 							</form></td>
 					</tr>
 				</c:forEach>
-				<td><a href="/order/cart" class="btn btn-primary">View Cart</a></td>
-				<td><a href="/order/list" class="btn btn-primary">Checkout History</a></td>
+				<tr>
+					<td><a href="/order/cart" class="btn btn-primary">View
+							Cart</a></td>
+					<td><a href="/order/list" class="btn btn-primary">Checkout
+							History</a></td>
+				</tr>
 			</tbody>
 		</table>
-
 	</div>
 </header>
 
