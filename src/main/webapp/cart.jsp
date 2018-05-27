@@ -3,7 +3,8 @@
 <jsp:include page="header.jsp" />
 
 <!-- JSTL includes -->
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -37,16 +38,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="item" varStatus="loop"
-					items="${MY_CART_ITEMS.items}">
+				<c:forEach var="item" items="${items}">
 					<tr>
 						<td><c:out value="${item.book.isbn13}" /></td>
 						<td><c:out value="${item.book.title}" /></td>
 						<td><c:out value="${item.book.authorname}" /></td>
-						<td><form action="item/remove" method="POST">
+						<td><form action="/item/remove/${item.book.isbn13}"
+								method="POST">
 								<sec:csrfInput />
 								<sec:csrfMetaTags />
-								<input type="hidden" name="isbn13" value="${item.book.isbn13}">
 								<button class="btn btn-primary">Remove</button>
 							</form></td>
 					</tr>

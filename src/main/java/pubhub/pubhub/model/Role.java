@@ -1,7 +1,6 @@
 package pubhub.pubhub.model;
 
 import java.util.Collection;
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

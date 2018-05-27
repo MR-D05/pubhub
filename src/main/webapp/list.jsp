@@ -15,16 +15,15 @@
 			<c:when test="${not empty message }">
 				<p class="alert ${messageClass}">${message }</p>
 				<%
-	  session.setAttribute("message", null);
-	  session.setAttribute("messageClass", null);
-	%>
+					session.setAttribute("message", null);
+							session.setAttribute("messageClass", null);
+				%>
 			</c:when>
 		</c:choose>
 
 		<h1>
 			PubHub <small>Checkout History</small>
 		</h1>
-		<h2><a href="pubHubHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
 		<hr class="book-primary">
 		<table
 			class="table table-striped table-hover table-responsive PubHub-datatable">
@@ -33,35 +32,25 @@
 					<td>ISBN-13:</td>
 					<td>Title:</td>
 					<td>Author:</td>
+					<td>Action:</td>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="item" varStatus="loop" items="${MY_CHECKEDOUT_BOOKS.items}">
+				<c:forEach var="book" items="${books}">
 					<tr>
-						<td><c:out value="${item.book.isbn13}" /></td>
-						<td><c:out value="${item.book.title}" /></td>
-						<td><c:out value="${item.book.author}" /></td>
-						<td><form action="/book/download" method="get">
-								<input type="hidden" name="isbn13" value="${item.book.isbn13}">
+						<td><c:out value="${book.isbn13}" /></td>
+						<td><c:out value="${book.title}" /></td>
+						<td><c:out value="${book.authorname}" /></td>
+						<td><form action="/book/download/${book.isbn13}" method="GET">
 								<button class="btn btn-primary">Download</button>
 							</form></td>
-						<%-- <td><form action="/item/add" method="post">
-								<input type="hidden" name="isbn13" value="${book.isbn13}">
-								<button class="btn btn-success">Add to Cart</button>
-							</form></td>
-						<td><form action="ViewBookDetails?isbn=${book.isbn13}"
-								method="get">
-								<input type="hidden" name="isbn13" value="${book.isbn13}">
-								<button class="btn btn-primary">Details</button>
-							</form></td>
-						<td><form action="/order/view" method="get">
-								<input type="hidden" name="isbn13" value="${book.isbn13}">
-								<button class="btn btn-primary">View Cart</button>
-							</form></td> --%>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<form action="${contextPath}/pubHub/home" method="GET">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Back</button>
+		</form>
 	</div>
 </header>
 

@@ -36,6 +36,12 @@ public class HomeController {
 		return "pubHubHome";
 	}
 
+	@RequestMapping(value = "/author/home", method = RequestMethod.GET)
+	public String authorHome(final HttpServletRequest request, final HttpServletResponse response,
+			final Authentication authentication, HttpSession session, Model model) {
+		return "publishBook";
+	}
+
 	@RequestMapping(value = "/social/home", method = RequestMethod.GET)
 	public String socialHome(final HttpServletRequest request, final HttpServletResponse response,
 			final Authentication authentication, Model model) {

@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -35,11 +34,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		final HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.setMaxInactiveInterval(30 * 60);
-			// System.out.println(authentication.getName());
 			CurrentlyLoggedInUser user = new CurrentlyLoggedInUser(authentication.getName(), activeUserStore);
 			session.setAttribute("user", user);
 		}
-		// clearAuthenticationAttributes(request);
 	}
 
 	protected void handle(final HttpServletRequest request, final HttpServletResponse response,
@@ -69,7 +66,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		if (isUser) {
 			return "/pubHub/home";
 		} else if (isAdmin) {
-			return "/publishBook.jsp";
+			return "/author/home";
 		} else {
 			throw new IllegalStateException();
 		}
@@ -82,4 +79,5 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 	protected RedirectStrategy getRedirectStrategy() {
 		return redirectStrategy;
 	}
+
 }

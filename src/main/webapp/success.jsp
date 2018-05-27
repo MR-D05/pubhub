@@ -10,7 +10,7 @@
 <header>
 	<div class="container">
 		<h1>
-			PubHub <small>Item Successfully Added to Cart</small>
+			PubHub <small>Item successfully added to you cart</small>
 		</h1>
 			<form action="pubHubHome.jsp" method="GET">
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Back to browsing</button>

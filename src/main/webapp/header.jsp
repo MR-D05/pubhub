@@ -65,7 +65,8 @@
 					<ul class="dropdown-menu">
 						<li><a href="/pubHub/home">Home (Level 100)</a></li>
 						<li class="divider"></li>
-						<li><a href="publishBook.jsp">Publish Book</a></li>
+						<li><a href="${request.contextPath}/publishBook.jsp">Publish
+								Book</a></li>
 						<li><a href="/logout">Logout</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -79,7 +80,7 @@
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Social<b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="socialHome.jsp">Home (Level 300)</a></li>
+						<li><a href="/social/home">Home (Level 300)</a></li>
 					</ul></li>
 			</ul>
 		</div>

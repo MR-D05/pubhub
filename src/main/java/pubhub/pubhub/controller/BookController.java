@@ -15,20 +15,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pubhub.pubhub.model.Book;
 import pubhub.pubhub.model.Channel;
@@ -43,7 +40,6 @@ import pubhub.pubhub.service.UserService;
 @Controller
 public class BookController {
 
-	private static final Logger LOGGER = LogManager.getLogger(BookController.class);
 	private static String UPLOADED_FOLDER = "C:/Revature/pubhub/pubhub/books/";
 
 	@Autowired
@@ -61,10 +57,10 @@ public class BookController {
 	@Autowired
 	private ChannelService channelService;
 
-	@GetMapping("/download")
-	public String download(@RequestParam("isbn13") String isbn13, HttpServletResponse response, HttpSession session)
+	@RequestMapping(value = "/book/download/{isbn13}")
+	@GetMapping
+	public String download(@PathVariable String isbn13, HttpServletResponse response, HttpSession session)
 			throws IOException {
-
 		Book book = bookService.findOne(isbn13);
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=" + book.getTitle() + ".pdf");
@@ -81,18 +77,14 @@ public class BookController {
 	}
 
 	@RequestMapping("/book/add")
+	@PostMapping
 	public String addBook(@RequestParam("isbn13") String isbn13, @RequestParam("title") String title,
-			@RequestParam("author") String author, @RequestParam("content") MultipartFile content,
-			RedirectAttributes redirectAttributes, ModelMap modelMap, HttpSession session) {
-		if (content.isEmpty()) {
-			redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-			return "redirect:/updateStatus";
-		}
+			@RequestParam("author") String author, @RequestParam("content") MultipartFile content, ModelMap modelMap,
+			HttpSession session) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String currentPrincipalName = authentication.getName();
 			User user = userService.findByUsername(currentPrincipalName);
-
 			Book book = new Book();
 			book.setIsbn13(isbn13);
 			book.setTitle(title);
@@ -110,7 +102,7 @@ public class BookController {
 			Collection<Role> roles = user.getRoles();
 			for (Role r : roles) {
 				if (r.equals(authorRole)) {
-					return "redirect:/pubHubHome.jsp";
+					return "redirect:/pubHub/home";
 				}
 			}
 			user.getRoles().addAll(Arrays.asList(authorRole));
@@ -118,11 +110,11 @@ public class BookController {
 			Channel channel = new Channel();
 			channel.setUser(user);
 			channelService.save(channel);
-			return "/pubHub/home";
+			return "redirect:/pubHub/home";
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "/pubHub/home";
+		return "redirect:/pubHub/home";
 	}
 
 }

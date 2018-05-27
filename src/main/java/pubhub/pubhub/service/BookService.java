@@ -25,5 +25,5 @@ public class BookService {
 	public Book findOne(String isbn13) {
 		return bookRepository.getOne(isbn13);
 	}
-	
+
 }

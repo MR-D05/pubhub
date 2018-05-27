@@ -35,10 +35,10 @@ public class UserController {
 
 	@Autowired
 	private UserValidator userValidator;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -56,7 +56,8 @@ public class UserController {
 			return "/user/register";
 		}
 		registrationForm.setPassword(bCryptPasswordEncoder.encode(registrationForm.getPassword()));
-		registrationForm.setPasswordconfirmation(bCryptPasswordEncoder.encode(registrationForm.getPasswordconfirmation()));
+		registrationForm
+				.setPasswordconfirmation(bCryptPasswordEncoder.encode(registrationForm.getPasswordconfirmation()));
 		Role userRole = roleRepository.findByName("ROLE_USER");
 		registrationForm.setRoles(Arrays.asList(userRole));
 		registrationForm.setEnabled(true);
@@ -83,4 +84,5 @@ public class UserController {
 		model.addAttribute("users", activeUserStore.getUsers());
 		return "currentlyLoggedInUsers";
 	}
+
 }

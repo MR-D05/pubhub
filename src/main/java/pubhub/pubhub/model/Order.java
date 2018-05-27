@@ -29,7 +29,7 @@ public class Order {
 	@JoinColumn(name = "userid")
 	private User user;
 
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Item> items;
 
 	@Column(name = "status")

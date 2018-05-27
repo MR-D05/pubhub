@@ -10,9 +10,14 @@ import pubhub.pubhub.repository.ItemRepository;
 public class ItemService {
 
 	@Autowired
-	private ItemRepository orderItemRepository;
+	private ItemRepository itemRepository;
 
 	public void save(Item item) {
-		orderItemRepository.save(item);
+		itemRepository.save(item);
 	}
+
+	public void delete(Item item) {
+		itemRepository.delete(item);
+	}
+
 }

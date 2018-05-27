@@ -2,7 +2,6 @@ package pubhub.pubhub.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "items")
@@ -13,7 +12,7 @@ public class Item {
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "orderid")
 	private Order order;
 
@@ -92,4 +91,5 @@ public class Item {
 		this.quantity = null;
 		this.ordered = null;
 	}
+
 }

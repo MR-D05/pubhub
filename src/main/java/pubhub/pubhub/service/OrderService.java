@@ -35,4 +35,8 @@ public class OrderService {
 		orderRepository.saveAndFlush(order);
 	}
 
+	public List<Order> findOrdersByUserAndStatus(User user, String status) {
+		return orderRepository.findOrdersByUserAndStatus(user, status);
+	}
+
 }

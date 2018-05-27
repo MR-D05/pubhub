@@ -2,71 +2,79 @@ package pubhub.pubhub.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pubhub.pubhub.model.Book;
 import pubhub.pubhub.model.Item;
 import pubhub.pubhub.model.Order;
 import pubhub.pubhub.model.User;
 import pubhub.pubhub.service.OrderService;
+import pubhub.pubhub.service.UserService;
 
 @Controller
-@RequestMapping("order")
 public class OrderController {
-	private static final Logger LOGGER = LogManager.getLogger(BookController.class);
 
 	@Autowired
 	private OrderService orderService;
 
-	@GetMapping("/list")
-	public String list(ModelMap modelMap, HttpSession session) {
-		modelMap.addAttribute("MY_CHECKEDOUT_BOOKS");
-		User user = (User) session.getAttribute("LOGGED_IN_USER");
-		Order order = (Order) session.getAttribute("MY_CHECKEDOUT_BOOKS");
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping("/order/list")
+	@GetMapping
+	public String list(HttpSession session) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user = userService.findByUsername(currentPrincipalName);
+		System.out.println(user);
 		List<Item> items = new ArrayList<>();
-		if (order == null) {
-			order = new Order();
-			session.setAttribute("MY_CHECKEDOUT_BOOKS", order);
+		List<Book> books = new ArrayList<>();
+		List<Order> orders = orderService.findOrdersByUserAndStatus(user, "CHECKEDOUT");
+		System.out.println(orders);
+		for (Order order : orders) {
+			items.addAll(order.getItems());
+			for (Item item : items) {
+				books.add(item.getBook());
+			}
 		}
-		Long id = user.getId();
-		List<Order> orders = orderService.findOrdersByUserId(id);
-		for (Order o : orders) {
-			if (o.getStatus().equals("CHECKEDOUT")) {
-				for (Item i : o.getItems()) {
-					items.add(i);
-				}
-		}
-		order.setItems(items);
-		session.setAttribute("MY_CHECKEDOUT_BOOKS", order);
-		LOGGER.info(order.getItems());
-		}
+		session.setAttribute("books", books);
 		return "redirect:/list.jsp";
 	}
 
-	@GetMapping("/cart")
+	@RequestMapping("/order/cart")
+	@GetMapping
 	public String cart(HttpSession session) {
-		User user = (User) session.getAttribute("LOGGED_IN_USER");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user = userService.findByUsername(currentPrincipalName);
 		try {
 			Order order = orderService.findOrderByUserAndStatus(user, "OPEN");
-			order.getItems();
-			session.setAttribute("MY_CART_ITEMS", order);
+			List<Item> items = order.getItems();
+			session.setAttribute("items", items);
 			return "redirect:/cart.jsp";
 		} catch (NullPointerException n) {
 			return "redirect:/empty.jsp";
 		}
 	}
 
-	@GetMapping("/checkout")
+	@RequestMapping("/order/checkout")
+	@GetMapping
 	public String buy(HttpSession session) {
-		Order order = (Order) session.getAttribute("MY_CART_ITEMS");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user = userService.findByUsername(currentPrincipalName);
+		Order order = orderService.findOrderByUserAndStatus(user, "OPEN");
 		order.setStatus("CHECKEDOUT");
 		orderService.save(order);
 		return "redirect:/checkedOut.jsp";
 	}
+
 }

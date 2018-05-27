@@ -1,27 +1,18 @@
 package pubhub.pubhub.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import pubhub.pubhub.model.User;
 import pubhub.pubhub.repository.UserRepository;
-import pubhub.pubhub.repository.RoleRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private RoleRepository roleRepository;
-
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	public void save(User user) {

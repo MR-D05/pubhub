@@ -23,4 +23,5 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 		}
 		response.sendRedirect("/login");
 	}
+
 }

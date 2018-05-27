@@ -1,10 +1,13 @@
 package pubhub.pubhub.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,10 +20,11 @@ import pubhub.pubhub.model.User;
 import pubhub.pubhub.service.BookService;
 import pubhub.pubhub.service.ItemService;
 import pubhub.pubhub.service.OrderService;
+import pubhub.pubhub.service.UserService;
 
 @Controller
-@RequestMapping("/item")
 public class ItemController {
+
 	@Autowired
 	private BookService bookService;
 
@@ -30,10 +34,16 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
-	@PostMapping("/add")
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping(value = "/item/add")
+	@PostMapping
 	public String add(@RequestParam("isbn13") String isbn13, RedirectAttributes redirectAttributes,
 			HttpSession session) {
-		User user = (User) session.getAttribute("LOGGED_IN_USER");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user = userService.findByUsername(currentPrincipalName);
 		try {
 			Order order = orderService.findOrderByUserAndStatus(user, "OPEN");
 			List<Item> items = order.getItems();
@@ -45,7 +55,7 @@ public class ItemController {
 			items.add(item);
 			order.setItems(items);
 			orderService.save(order);
-			session.setAttribute("MY_CART_ITEMS", order);
+			session.setAttribute("items", items);
 			return "redirect:/success.jsp";
 		} catch (NullPointerException n) {
 			Order order = new Order();
@@ -57,31 +67,31 @@ public class ItemController {
 			item.setOrder(order);
 			item.setBook(book);
 			itemService.save(item);
-			session.setAttribute("MY_CART_ITEMS", order);
+			List<Item> items = order.getItems();
+			session.setAttribute("items", items);
 			return "redirect:/success.jsp";
 		}
 	}
 
-	@GetMapping("/list")
-	public String list(HttpSession session) {
-		return null;
+	@RequestMapping(value = "/item/remove/{isbn13}")
+	@PostMapping
+	public String removeItem(@PathVariable String isbn13, HttpSession session) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user = userService.findByUsername(currentPrincipalName);
+		Order order = orderService.findOrderByUserAndStatus(user, "OPEN");
+		System.out.println(order);
+		System.out.println(order.getItems());
+		Item item = new Item();
+		List<Item> items = order.getItems();
+		for (Item i : items) {
+			if (i.getBook().getIsbn13().equals(isbn13)) {
+				item = i;
+			}
+		}
+		order.getItems().removeAll(Arrays.asList(item));
+		orderService.saveAndFlush(order);
+		return "redirect:/removed.jsp";
 	}
 
-	@PostMapping("/remove")
-	public String remove(@RequestParam("isbn13") String isbn13, HttpSession session) {
-		User user = (User) session.getAttribute("LOGGED_IN_USER");
-		try {
-			Order order = orderService.findOrderByUserAndStatus(user, "OPEN");
-			List<Item> items = order.getItems();
-			for (@SuppressWarnings("unused")
-			Item item : items) {
-				order.removeItem(isbn13);
-				orderService.saveAndFlush(order);
-				return "redirect:/removed.jsp";
-			}
-			return "redirect:/removed.jsp";
-		} catch (Exception e) {
-			return "redirect:/cart.jsp";
-		}
-	}
 }

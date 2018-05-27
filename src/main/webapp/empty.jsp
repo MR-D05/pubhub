@@ -12,7 +12,7 @@
 		<h1>
 			PubHub <small>Your cart is empty</small>
 		</h1>
-		<form action="/pubHubHome" method="GET">
+		<form action="/pubHub/home" method="GET">
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Back</button>
 		</form>
 	</div>
