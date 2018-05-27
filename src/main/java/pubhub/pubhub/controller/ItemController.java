@@ -73,13 +73,14 @@ public class ItemController {
 		try {
 			Order order = orderService.findOrderByUserAndStatus(user, "OPEN");
 			List<Item> items = order.getItems();
-			for(@SuppressWarnings("unused") Item item : items) {
+			for (@SuppressWarnings("unused")
+			Item item : items) {
 				order.removeItem(isbn13);
 				orderService.saveAndFlush(order);
 				return "redirect:/removed.jsp";
 			}
 			return "redirect:/removed.jsp";
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return "redirect:/cart.jsp";
 		}
 	}

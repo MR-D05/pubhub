@@ -77,15 +77,13 @@
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 		</form:form>
-		
+
 		<form action="${contextPath}/login">
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Already a registered user?</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Already
+				a registered user?</button>
 		</form>
 
 	</div>
 </header>
-
-
-
 <!-- Footer -->
 <jsp:include page="footer.jsp" />

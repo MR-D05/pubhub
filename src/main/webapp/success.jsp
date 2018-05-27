@@ -12,8 +12,12 @@
 		<h1>
 			PubHub <small>Item Successfully Added to Cart</small>
 		</h1>
-		<h2><a href="pubHubHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
-		<h2><a href="/order/cart" class="btn btn-primary">View Cart</a></h2>
+			<form action="pubHubHome.jsp" method="GET">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Back to browsing</button>
+		</form>
+			<form action="/order/cart" method="GET">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">View cart</button>
+		</form>
 	</div>
 </header>
 

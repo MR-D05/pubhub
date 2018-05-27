@@ -22,16 +22,31 @@
 		</c:choose>
 
 		<h1>
-			PubHub <small>Social Media Home</small>
+			PubHub <small>Social home</small>
 		</h1>
 		<hr class="book-primary">
 
 		<table
 			class="table table-striped table-hover table-responsive PubHub-datatable">
-			<thead>
-				<tr><td><a href="/social/home" class="btn btn-primary">YOUR SOCIAL MEDIA HOMEPAGE</a></td></tr>
-				<tr><td><a href="authorRegistration.jsp" class="btn btn-primary">BECOME AN AUTHOR</a></td></tr>
-			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<form action="/subscriptions/manage" method="GET">
+							<button class="btn btn-lg btn-primary btn-block" type="submit">Manage
+								subscriptions (Users)</button>
+						</form>
+						<form action="/message/list" method="GET">
+							<button class="btn btn-lg btn-primary btn-block" type="submit">Your messages (Users)</button>
+						</form>
+						<form action="/message/send" method="GET">
+							<button class="btn btn-lg btn-primary btn-block" type="submit">Fan
+								outreach (Authors)</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+
+
 		</table>
 	</div>
 </header>

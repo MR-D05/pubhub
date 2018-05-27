@@ -11,10 +11,16 @@
 <header>
 	<div class="container">
 		<h1>
-			PubHub <small>Item Successfully Removed Item From Cart</small>
+			PubHub <small>Item successfully removed from cart</small>
 		</h1>
-		<h2><a href="pubHubHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
-		<h2><a href="/order/cart" class="btn btn-primary">Back To Cart</a></h2>
+		<form action="pubHubHome.jsp" method="GET">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Back
+				to browsing</button>
+		</form>
+		<form action="/order/cart" method="GET">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Back
+				to cart</button>
+		</form>
 	</div>
 </header>
 

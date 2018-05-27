@@ -1,4 +1,3 @@
-
 <!-- Header -->
 <jsp:include page="header.jsp" />
 
@@ -11,9 +10,11 @@
 <header>
 	<div class="container">
 		<h1>
-			PubHub <small>Your Cart Is Empty</small>
+			PubHub <small>Your cart is empty</small>
 		</h1>
-		<h2><a href="pubHubHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
+		<form action="/pubHubHome" method="GET">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Back</button>
+		</form>
 	</div>
 </header>
 

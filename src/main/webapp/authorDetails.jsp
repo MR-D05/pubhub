@@ -22,35 +22,32 @@
 		</c:choose>
 
 		<h1>
-			PubHub <small>PubHub Home</small>
+			PubHub <small>Messages</small>
 		</h1>
 		<hr class="book-primary">
 
 		<table
 			class="table table-striped table-hover table-responsive PubHub-datatable">
+			<thead>
+				<tr>
+					<td>Author's first name:</td>
+					<td>Author's last name:</td>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
-					<td><form action="/subscriber/add" method="post">
-							<select name="selection">
-								<c:forEach var="author" items="${authors}">
-									<option>"${author.name}"</option>
-								</c:forEach>
-							</select> <input type="submit" value="Submit">
-						</form>
-					</td>
+					<td><c:out value="${author.firstname}" /></td>
+					<td><c:out value="${author.lastname}" /></td>
 				</tr>
 			</tbody>
+
 		</table>
+		<form action="${contextPath}/subscriptions/manage">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Back
+				to managing your subscriptions</button>
+		</form>
 	</div>
 </header>
 
 <!-- Footer -->
 <jsp:include page="footer.jsp" />
-
-<form action="some.jsp">
-	<select name="item">
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-	</select> <input type="submit" value="Submit">
-</form>

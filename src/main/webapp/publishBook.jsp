@@ -3,6 +3,7 @@
 <jsp:include page="header.jsp" />
 
 <!-- JSTL includes -->
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -16,9 +17,9 @@
 			<c:when test="${not empty message }">
 				<p class="alert ${messageClass}">${message }</p>
 				<%
-	  session.setAttribute("message", null);
-	  session.setAttribute("messageClass", null);
-	%>
+					session.setAttribute("message", null);
+							session.setAttribute("messageClass", null);
+				%>
 			</c:when>
 		</c:choose>
 
@@ -29,6 +30,8 @@
 
 		<form action="/book/add" method="post" class="form-horizontal"
 			enctype="multipart/form-data">
+			<sec:csrfInput />
+			<sec:csrfMetaTags />
 			<div class="form-group">
 				<label for="isbn13" class="col-sm-4 control-label">ISBN 13</label>
 				<div class="col-sm-5">

@@ -2,17 +2,18 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>PubHub</title>
 <link rel="shortcut icon" href="../resources/imgs/favicon.png"
 	type="image/x-icon">
 
 <!-- CSS - Custom fonts -->
-<link
-	href="../resources/libraries/font-awesome/css/font-awesome.min.css"
+<link href="/resources/libraries/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
 	rel="stylesheet" type="text/css">
@@ -28,18 +29,18 @@
 
 <!-- CSS - Bootstrap -->
 <link rel="stylesheet" type="text/css"
-	href="../resources/libraries/css/bootstrap.css" />
+	href="/resources/libraries/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css"
-	href="../resources/libraries/css/freelancer.css" />
+	href="/resources/libraries/css/freelancer.css" />
 <link rel="stylesheet" type="text/css"
-	href="../resources/libraries/css/half-slider.css" />
+	href="/resources/libraries/css/half-slider.css" />
 
 <!-- CSS - Custom -->
 <link rel="stylesheet" type="text/css"
-	href="../resources/styles/custom.css" />
+	href="/resources/styles/custom.css" />
 
 </head>
-<body onload="display_username()">
+<body>
 	id="page-top" class="index">
 	<!-- Navigation -->
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -62,7 +63,7 @@
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">PubHub<b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="/login">Home (Level 100)</a></li>
+						<li><a href="/pubHub/home">Home (Level 100)</a></li>
 						<li class="divider"></li>
 						<li><a href="publishBook.jsp">Publish Book</a></li>
 						<li><a href="/logout">Logout</a></li>
@@ -70,7 +71,7 @@
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Marketplace<b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="/login">Home (Level 200)</a></li>
+						<li><a href="/pubHub/home">Home (Level 200)</a></li>
 						<li class="divider"></li>
 						<li><a href="/order/cart">Cart</a></li>
 						<li><a href="/order/list">Orders</a></li>

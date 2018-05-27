@@ -46,19 +46,19 @@
 //		Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
 //		Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
 //
-//		List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
-//		createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
+//		List<Privilege> authorPrivileges = Arrays.asList(readPrivilege, writePrivilege);
+//		createRoleIfNotFound("ROLE_ADMIN", authorPrivileges);
 //		createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
+//		createRoleIfNotFound("ROLE_AUTHOR", authorPrivileges);
 //
-//		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 //		Role userRole = roleRepository.findByName("ROLE_USER");
-//		
+//
 //		User user = new User();
 //		user.setFirstname("John");
 //		user.setLastname("Jingleheimer-Schmidt");
 //		user.setUsername("testuser");
 //		user.setPassword(bCryptPasswordEncoder.encode("password"));
-//		user.setRoles(Arrays.asList(adminRole));
+//		user.setRoles(Arrays.asList(userRole));
 //		user.setEnabled(true);
 //		userRepository.save(user);
 //
@@ -70,16 +70,16 @@
 //		user1.setRoles(Arrays.asList(userRole));
 //		user1.setEnabled(true);
 //		userRepository.save(user1);
-//		
+//
 //		User user11 = new User();
 //		user11.setFirstname("Lana");
 //		user11.setLastname("Schmere");
 //		user11.setUsername("testuser2");
 //		user11.setPassword(bCryptPasswordEncoder.encode("password"));
-//		user11.setRoles(Arrays.asList(adminRole));
+//		user11.setRoles(Arrays.asList(userRole));
 //		user11.setEnabled(true);
 //		userRepository.save(user11);
-//		
+//
 //		alreadySetup = true;
 //	}
 //

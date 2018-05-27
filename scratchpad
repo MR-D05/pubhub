@@ -1,4 +1,14 @@
+Item cart shows items not tied to specific user, can show other peoples carts items FIX THAT
 
+
+can see the redirect in the preview but it doesnt actually redirect
+https://gist.github.com/bbroadstone/bcae78730d9e82822f3c1b1aadb49b35
+
+	form.addEventListener('success', function (event) {
+		 location.href = 'http://localhost:8080/subscriptionSuccessfullyDeleted.jsp'
+	});
+
+//<sec:authentication property="principal.username" /> <sec:csrfInput />
 //	@Autowired
 //	private AuthorService authorService;
 //
@@ -31,3 +41,181 @@
 	// userRepository.findByNameAndPassword(name, password);
 	// return "redirect:/libraryHome.jsp";
 	// }
+	
+	
+	WANT TO TIE USER TO AUTHENTICATION SO WE CAN ASCERTAIN AUTHOR STATUS
+	
+	<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+	
+	
+			<form action="/book/add" method="post" class="form-horizontal"
+			enctype="multipart/form-data">
+			<div class="form-group">
+				<label for="isbn13" class="col-sm-4 control-label">ISBN 13</label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control" id="isbn13" name="isbn13"
+						placeholder="ISBN 13" required="required" value="${param.isbn13 }" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Title</label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control" id="title" name="title"
+						placeholder="Title" required="required" value="${param.title }" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="author" class="col-sm-4 control-label">Author</label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control" id="author" name="author"
+						placeholder="Author" required="required" value="${param.author }" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="content" class="col-sm-4 control-label">Content</label>
+				<div class="col-sm-5">
+					<input type="file" class="form-control" id="content" name="content"
+						placeholder="Content" value="${param.content }" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-1">
+					<button type="submit" class="btn btn-info">Publish Book</button>
+				</div>
+			</div>
+		</form>
+
+		
+			@RequestMapping(value = "/book/add", method = RequestMethod.POST)
+	public String addBook(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult,
+			Model model, HttpSession session) {
+		try {
+			Book book = new Book();
+			book.setIsbn13(bookForm.getIsbn13());
+			book.setTitle(bookForm.getTitle());
+			book.setAuthor(bookForm.getAuthor());
+			byte[] bytes = bookForm.getContent();
+			book.setContent(bytes);
+			bookService.save(book);
+			Path path = Paths.get(UPLOADED_FOLDER + bookForm.getTitle().getOriginalFilename());
+			Files.write(path, bytes);
+			LOGGER.info("Entering list");
+			List<Book> books = null;
+			books = bookService.findAll();
+			LOGGER.info(books);
+			session.setAttribute("books", books);
+			return "redirect:/pubHubHome.jsp";
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/pubHubHome.jsp";
+	}
+	
+	
+		@PostMapping("/add")
+	public String addBook(@RequestParam("isbn13") String isbn13, @RequestParam("title") String title,
+			@RequestParam("author") String author, @RequestParam("content") MultipartFile content,
+			RedirectAttributes redirectAttributes, ModelMap modelMap, HttpSession session) {
+		if (content.isEmpty()) {
+			redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+			return "redirect:/updateStatus";
+		}
+		try {
+			Book book = new Book();
+			book.setIsbn13(isbn13);
+			book.setTitle(title);
+			book.setAuthor(author);
+			byte[] bytes = content.getBytes();
+			book.setContent(bytes);
+			bookService.save(book);
+			Path path = Paths.get(UPLOADED_FOLDER + content.getOriginalFilename());
+			Files.write(path, bytes);
+			LOGGER.info("Entering list");
+			List<Book> books = null;
+			books = bookService.findAll();
+			LOGGER.info(books);
+			session.setAttribute("books", books);
+			return "redirect:/pubHubHome.jsp";
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/pubHubHome.jsp";
+	}
+	
+	
+	
+	
+<!-- Header -->
+<jsp:include page="header.jsp" />
+
+<!-- JSTL includes -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<!-- 	Just some stuff you need -->
+<header>
+	<div class="container">
+
+
+		<c:choose>
+			<c:when test="${not empty message }">
+				<p class="alert ${messageClass}">${message }</p>
+				<%
+					session.setAttribute("message", null);
+							session.setAttribute("messageClass", null);
+				%>
+			</c:when>
+		</c:choose>
+		<h1>
+			PubHub <small>Send a message</small>
+		</h1>
+		<hr class="book-primary">
+		<form action="/message/send" method="POST" class="form-horizontal"
+			enctype="multipart/form-data">
+			<div class="form-group">
+				<label for="channelid" class="col-sm-4 control-label">Choose
+					a channel</label>
+
+				<c:forEach var="channel" items="${channels}">
+					<tr>
+						<td><c:out value="${channel.id}" /></td>
+						<td>
+							<form action="/channel/subscribe" method="POST">
+								<input type="hidden" name="name" value="${author.name}">
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Subscribe</button>
+							</form>
+						</td>
+					</tr>
+				</c:forEach>
+
+
+
+
+				<c:forEach var="channel" items="${channels}">
+					<option value="${channel.id}">
+						<c:out value="${channel.id}" /></option>
+				</c:forEach>
+			</div>
+			<div class="form-group">
+				<label for="content" class="col-sm-4 control-label">Message</label>
+				<div class="col-sm-5">
+					<textarea class="form-control" id="content" name="content"
+						placeholder="Content"> </textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-1">
+					<button type="submit" class="btn btn-info">Send message</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</header>
+<!-- Footer -->
+<jsp:include page="footer.jsp" />
+	

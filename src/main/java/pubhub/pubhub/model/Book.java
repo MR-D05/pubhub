@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,13 +22,17 @@ public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "isbn13")
-	private String isbn13; // International Standard Book Number, unique
+	private String isbn13;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "userid")
+	private User user;
 
 	@Column
 	private String title;
 
 	@Column
-	private String author;
+	private String authorname;
 
 	@Column
 	private byte[] content;
@@ -34,28 +40,20 @@ public class Book implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "isbn13", cascade = CascadeType.ALL)
 	public List<BookTag> booktags;
 
-	// Constructor used when a date is specified
-	public Book(String isbn, String title, String author, byte[] content) {
-		this.isbn13 = isbn;
-		this.title = title;
-		this.author = author;
-		this.content = content;
-	}
-
-	// Default constructor
-	public Book() {
-		this.isbn13 = null;
-		this.title = null;
-		this.author = null;
-		this.content = null;
-	}
-
 	public String getIsbn13() {
 		return isbn13;
 	}
 
 	public void setIsbn13(String isbn13) {
 		this.isbn13 = isbn13;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getTitle() {
@@ -66,12 +64,12 @@ public class Book implements Serializable {
 		this.title = title;
 	}
 
-	public String getAuthor() {
-		return author;
+	public String getAuthorname() {
+		return authorname;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuthorname(String authorname) {
+		this.authorname = authorname;
 	}
 
 	public byte[] getContent() {
@@ -82,11 +80,31 @@ public class Book implements Serializable {
 		this.content = content;
 	}
 
-	public List<BookTag> getBookTags() {
+	public List<BookTag> getBooktags() {
 		return booktags;
 	}
 
-	public void setBookTags(List<BookTag> bookTags, List<BookTag> booktags) {
+	public void setBooktags(List<BookTag> booktags) {
 		this.booktags = booktags;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Book(String isbn13, User user, String title, String authorname, byte[] content, List<BookTag> booktags) {
+		super();
+		this.isbn13 = isbn13;
+		this.user = user;
+		this.title = title;
+		this.authorname = authorname;
+		this.content = content;
+		this.booktags = booktags;
+	}
+
+	public Book() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }

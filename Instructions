@@ -39,3 +39,40 @@ The login.jsp should be the first page the user sees.
 
 
 manage your subscriptions  || authors you are subscribed to -> post to channel  -> add subscription
+
+
+NEED TO MAKE SUBSCRIBERS SUBSCRIPTIONS UNIQUE, RIGHT NOW YOU CAN SUBSCRIBE TO THE SAME PERSON OVER AND OVER AND IT MAKES NEW ROWS IN DB
+
+
+
+BR-4: Users should be able to view an Author's info page, and subscribe messages from them.
+FR-4: The Fan Outreach Service will register an author channel for an author when he or she publishes their first book.
+NFR-4: The application should use Servlets for all user navigation within the web application
+FR-5: The user's session should be maintained as they navigate through the entire application.
+As a bare minimum, you should implement the following new functionality:
+
+create ViewAuthorDetailsServlet
+create SendMessageServlet
+create ViewMessageDetailsServlet
+create ViewMessageListServlet
+create AddSubscriptionSerlet
+create RemoveSubscriptionServlet
+change PublishBookServlet to create an author channel if the user has not published before, and to change the user's role to AUTHOR
+Note that many of these servlets will act as clients for the service you have created, connecting, sending an HTTP request, and parsing the response.
+
+NFR-5: The application should use JSPs for the views presented to the user
+At a minimum, you should be able to do the following:
+
+create sendMessage.jsp
+create messageDetails.jsp
+create messageList.jsp
+create authorDetails.jsp
+
+
+
+NEED A CHECK AT SOCIALHOME SO THAT WHEN BUTTON IS PRESSED FOR AUTHORS, THAT MAPPING CHECKS IF THE SECUIRTY CONTEXT USER HAS THE CORRECT ROLE, IF SO, GO TO SEND MESSAGE
+IF NOT GO TO PAGE THAT SAYS "YOU ARE NOT AN AUTHOR"
+
+SENDMESSAGE JSP SHOULD THEN, FROM MESSAGE CONTROLLER /MESSAGE/SEND, GET THE MODEL ATTRIBUTE LIKE--IT GETS THE 
+SECURITY USER CONTEXT HOLDER WHICH IS A USER THAT HAS THE COLLECTION OF CHANNELS FROM THERE YOU GET THE CHANNEL
+MAPPED TO THAT USER(AUTHOR), WHICH HAS THE COLLECTION OF USERS (SUBSCRIBEES)

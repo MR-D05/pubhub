@@ -18,14 +18,15 @@ public class OrderService {
 	public Order findOrderByUserId(Long id) {
 		return orderRepository.getOne(id);
 	}
-	
+
 	public List<Order> findOrdersByUserId(Long id) {
 		return orderRepository.findAll();
 	}
-	
+
 	public Order findOrderByUserAndStatus(User user, String status) {
 		return orderRepository.findOrderByUserAndStatus(user, status);
 	}
+
 	public void save(Order order) {
 		orderRepository.save(order);
 	}
@@ -33,4 +34,5 @@ public class OrderService {
 	public void saveAndFlush(Order order) {
 		orderRepository.saveAndFlush(order);
 	}
+
 }

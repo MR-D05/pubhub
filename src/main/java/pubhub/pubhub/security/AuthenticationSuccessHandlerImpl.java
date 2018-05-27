@@ -35,16 +35,17 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		final HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.setMaxInactiveInterval(30 * 60);
+			// System.out.println(authentication.getName());
 			CurrentlyLoggedInUser user = new CurrentlyLoggedInUser(authentication.getName(), activeUserStore);
 			session.setAttribute("user", user);
 		}
-		clearAuthenticationAttributes(request);
+		// clearAuthenticationAttributes(request);
 	}
 
 	protected void handle(final HttpServletRequest request, final HttpServletResponse response,
 			final Authentication authentication) throws IOException {
+		System.out.println(authentication.getName());
 		final String targetUrl = determineTargetUrl(authentication);
-
 		if (response.isCommitted()) {
 			logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
 			return;
@@ -66,20 +67,12 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 			}
 		}
 		if (isUser) {
-			return "/pubHubHome.jsp";
+			return "/pubHub/home";
 		} else if (isAdmin) {
 			return "/publishBook.jsp";
 		} else {
 			throw new IllegalStateException();
 		}
-	}
-
-	protected void clearAuthenticationAttributes(final HttpServletRequest request) {
-		final HttpSession session = request.getSession(false);
-		if (session == null) {
-			return;
-		}
-		session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 	}
 
 	public void setRedirectStrategy(final RedirectStrategy redirectStrategy) {

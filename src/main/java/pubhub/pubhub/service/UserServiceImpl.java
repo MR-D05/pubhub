@@ -1,12 +1,12 @@
 package pubhub.pubhub.service;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import pubhub.pubhub.model.Role;
 import pubhub.pubhub.model.User;
 import pubhub.pubhub.repository.UserRepository;
 import pubhub.pubhub.repository.RoleRepository;
@@ -25,10 +25,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void save(User user) {
-		Role userRole = roleRepository.findByName("ROLE_USER");
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setRoles(Arrays.asList(userRole));
-		user.setEnabled(true);
+		userRepository.save(user);
+	}
+
+	public void update(User user) {
 		userRepository.save(user);
 	}
 
@@ -41,4 +41,15 @@ public class UserServiceImpl implements UserService {
 	public User findByUserameAndPassword(String username, String password) {
 		return userRepository.findByUsernameAndPassword(username, password);
 	}
+
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public User getOne(Long userid) {
+		return userRepository.getOne(userid);
+	}
+
 }

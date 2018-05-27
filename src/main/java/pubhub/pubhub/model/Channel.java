@@ -1,19 +1,19 @@
 package pubhub.pubhub.model;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "channels")
@@ -23,6 +23,17 @@ public class Channel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
+
+	@OneToOne
+	@JoinColumn(name = "userid")
+	private User user;
+
+	// @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval =
+	// true)
+	// private List<Message> messages;
+
+	@ManyToMany(mappedBy = "channels")
+	private Collection<User> users;
 
 	public Long getId() {
 		return id;
@@ -40,25 +51,32 @@ public class Channel {
 		this.user = user;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userid")
-	private User user;
+	// public List<Message> getMessages() {
+	// return messages;
+	// }
+	//
+	// public void setMessages(List<Message> messages) {
+	// this.messages = messages;
+	// }
 
-	@OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Message> messages;
-
-	public List<Message> getMessages() {
-		return messages;
+	public Collection<User> getUsers() {
+		return users;
 	}
 
-	public void setMessages(List<Message> messages) {
-		this.messages = messages;
+	public void setUsers(Collection<User> users) {
+		this.users = users;
 	}
 
-	public Channel(Long id, User user, List<Message> messages) {
+	public Channel(Long id, User user, Collection<User> users) {
 		super();
 		this.id = id;
 		this.user = user;
-		this.messages = messages;
+		this.users = users;
 	}
+
+	public Channel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }

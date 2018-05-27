@@ -46,7 +46,7 @@
 			</spring:bind>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 		</form:form>
-		<form action="${contextPath}/registration">
+		<form action="/user/register">
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
 		</form>
 	</div>

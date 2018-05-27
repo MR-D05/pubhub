@@ -13,7 +13,10 @@
 		<h1>
 			PubHub <small>Check Out Successful</small>
 		</h1>
-		<h2><a href="pubHubHome.jsp" class="btn btn-primary">Back to Browsing</a></h2>
+		<form action="pubHubHome.jsp" method="GET">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Back
+				to browsing</button>
+		</form>
 	</div>
 </header>
 

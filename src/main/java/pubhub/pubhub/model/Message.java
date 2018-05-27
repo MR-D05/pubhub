@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "messages")
@@ -21,15 +20,11 @@ public class Message {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "channelid")
-	private Channel channel;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "subscriberid")
-	private Subscriber subscriber;
+	@JoinColumn(name = "userid")
+	private User user;
 
 	@Column
-	private byte[] content;
+	private String content;
 
 	public Long getId() {
 		return id;
@@ -39,35 +34,31 @@ public class Message {
 		this.id = id;
 	}
 
-	public Channel getChannel() {
-		return channel;
+	public User getUser() {
+		return user;
 	}
 
-	public void setChannel(Channel channel) {
-		this.channel = channel;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Subscriber getSubscriber() {
-		return subscriber;
-	}
-
-	public void setSubscriber(Subscriber subscriber) {
-		this.subscriber = subscriber;
-	}
-
-	public byte[] getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	public void setContent(byte[] content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
-	public Message(Long id, Channel channel, Subscriber subscriber, byte[] content) {
+	public Message(Long id, User user, String content) {
 		super();
 		this.id = id;
-		this.channel = channel;
-		this.subscriber = subscriber;
+		this.user = user;
 		this.content = content;
 	}
+
+	public Message() {
+		super();
+	}
+
 }
